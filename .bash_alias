@@ -1,0 +1,45 @@
+function cd {
+    case $1 in
+        "")
+            pushd $HOME > /dev/null
+            ;;
+        "-")
+            [ $# -eq 1 ] &&[ `dirs | wc -w` -gt 1 ] && popd > /dev/null
+            [ $# -eq 2 ] && pushd +$2 > /dev/null
+            ;;
+        "")
+            [ -d $1 ] && pushd $1 > /dev/null
+            ;;
+        *)
+            [ -d $1 ] && pushd $1 > /dev/null
+            ;;
+    esac
+}
+
+function p {
+	now=`pwd`
+	cnt=`dirs -v|wc --lines`
+	for i in `seq 1 $cnt`
+	do
+		popd >& /dev/null
+	done
+	cd "$now"
+}
+alias d='dirs -v'
+
+alias cd1='../'
+alias cd2='../../'
+alias cd3='../../../'
+alias cd4='../../../../'
+alias cd5='../../../../../'
+
+alias l='ls'
+alias la='ls -a'
+alias ll='ls -lh --sort=extension'
+
+alias v='view'
+alias df='df -h'
+alias eman='LANG=C man'
+
+alias w3m='w3m google.com'
+
