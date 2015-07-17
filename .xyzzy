@@ -1,0 +1,12 @@
+(load-library "region-hilight.l") 
+(require "isearch")
+
+(add-hook '*lisp-mode-hook*
+  #'(lambda ()
+       (make-local-variable 'keyword-hash-table)
+       (setf keyword-hash-table (load-keyword-file "lisp"))
+       (make-local-variable 'regexp-keyword-list)
+       (setf regexp-keyword-list
+          (compile-regexp-keyword-list
+            '(("(" t (:color 14))
+              (")" t (:color 14)))))))
