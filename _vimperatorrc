@@ -1,0 +1,63 @@
+"###基本設定###
+" Ctrl+r で.vimperatorrcを再読込み
+nmap <C-r> :source ~/_vimperatorrc<CR>
+" no beep
+set visualbell
+highlight Bell display:none
+" デフォルトの検索エンジン
+set defsearch=google
+" 検索キーワードのハイライト
+set hlsearch
+" キャレット幅を変更
+set! ui.caretWidth=2
+" コマンドモードではIMEをOFFに
+style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+" 入力欄に自動フォーカスしない
+set focuscontent
+" デフォルトのエラー赤くてこわい＞＜
+hi ErrorMsg color:white; background-color: #ec6aa1;
+" デフォルトのヒント派手すぎ＞＜
+hi Hint font-family: Arial; font-size: 21px; font-weight: bold; text-shadow: -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black, 1px 1px 2px black; color: #33cccc;
+hi HintElem color: gray; background-color: #a1e4e6;
+hi HintActive color: black; background-color: #ff8700;
+
+"###移動設定###
+" j/k でのスクロール幅を 1行 から 3行 に変更
+nmap j 5<C-e>
+nmap k 5<C-y>
+" H/Lに戻る/進むを割り当て
+nmap h <A-Left>
+nmap l <A-Right>
+" h/lでタブ移動
+nmap H gT
+nmap L gt
+" Shift + ←/→ で現在のタブの位置変更
+nmap <S-Right> :tabmove! +1<CR>
+nmap <S-Left> :tabmove! -1<CR>
+
+"###操作系###
+" undo一覧から開く
+nnoremap U :undo<Space>
+let g:hint_tombloo_key = 'r'
+
+" ddでタブを閉じる, dでは何もしない
+no dd :tabclose<CR>
+map d <NOP>
+" Ctrl+aで全選択になるようにする
+noremap <C-a> i<C-a>
+inoremap <C-a> <insert><C-a><insert>
+" sでぐぐる
+nnoremap s :tabopen<Space>google<Space>
+" 選択文字列でぐぐる(マウスとVISUALモードの選択時に対応)
+nmap S <C-c>:tabopen<Space>google<Space><C-v><CR>
+vmap S <C-c><Esc><Esc>:tabopen<Space>google<Space><C-v><CR>
+" 自動補完の候補
+set complete=sl
+" exit
+nmap q :quit<CR>
+
+
+
+
+
+
