@@ -1,0 +1,100 @@
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed and saved.
+ *
+ * Add your own CSS or Less to fully customize Atom.
+ * If you are unfamiliar with Less, you can read more about it here:
+ * http://lesscss.org
+ */
+
+
+/*
+ * Examples
+ * (To see them, uncomment and save)
+ */
+
+// style the background color of the tree view
+.tree-view {
+  // background-color: whitesmoke;
+}
+
+// style the background and foreground colors on the atom-text-editor-element itself
+atom-text-editor {
+  // color: white;
+  // background-color: hsl(180, 24%, 12%);
+}
+
+// To style other content in the text editor's shadow DOM, use the ::shadow expression
+atom-text-editor::shadow .cursor {
+  // border-color: red;
+}
+
+//ここから追加
+@font-family-p: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN";
+@font-family-m: Consolas, 'Courier New', Courier, Monaco, monospace;
+
+.tree-view {
+  font-family: @font-family-p;
+}
+.tree-view ol {
+    font-size:18px;
+    padding:0;
+}
+.tree-view li {
+  padding:0.1em;
+}
+
+.editor {
+  font-family: @font-family-m;
+}
+
+.vertical {
+  font-family: @font-family-p;
+}
+
+
+.markdown-preview {
+  font-family: @font-family-p;
+  background: #fffffe !important;;
+  body{
+    size:50;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: @font-family-p;
+  }
+
+  h1 {
+      padding:0.1em;
+      line-height:140%;
+      background-color:#b4d0e9;
+      border:1px solid #fffffe;
+  }
+  h2 {
+      padding:0.0em;
+      line-height:130%;
+      text-indent: 0.1em;
+      border:1px solid #3333aa;
+      border-left:5px solid #3333aa;
+  }
+  h3 {
+      padding:0.0em;
+      line-height:120%;
+      text-indent: 0.2em;
+      border-bottom:1px solid #3333aa;
+  }
+  h4 {
+      padding:0.1em;
+      line-height:110%;
+      text-indent: 0.2em;
+      border-bottom:1px dashed #3333aa;
+  }
+  a:link {
+    color: #004790;
+    target: _blank;
+  }
+  pre, code, tt {
+    font-family: @font-family-m;
+  }
+}
