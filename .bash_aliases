@@ -27,11 +27,11 @@ function p {
 }
 alias d='dirs -v'
 
-alias cd1='../'
-alias cd2='../../'
-alias cd3='../../../'
-alias cd4='../../../../'
-alias cd5='../../../../../'
+alias cd1='cd ../'
+alias cd2='cd ../../'
+alias cd3='cd ../../../'
+alias cd4='cd ../../../../'
+alias cd5='cd ../../../../../'
 
 alias l='ls'
 alias la='ls -a'
@@ -42,4 +42,7 @@ alias df='df -h'
 alias eman='LANG=C man'
 
 alias w3m='w3m google.com'
+
+## ALIASES
+alias htb='sudo openvpn $HOME/share/meruneru.ovpn'
 
