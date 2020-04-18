@@ -1,20 +1,47 @@
-" 基本設定
-"###################################################
-set nocompatible
-set fileformats=unix,dos,mac
-"クリップボードをtmuxで利用するための設定
-set clipboard=unnamed
-" バックスペースでの削除指定
-" (indent:行頭の空白、eol:改行、start:手前の文字)
-set backspace=indent,eol,start
-"###################################################
-" バックアップ
-"###################################################
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here like this:
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/neocomplcache'                   )
+  call dein#add('Shougo/unite.vim'                       )
+  call dein#add('Shougo/vimfiler'                        )
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('Shougo/neomru.vim'                      )
+  " call dein#add('git://github.com/kana/vim-fakeclip.git' )
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+"-----------------------------------------------------------------------------
+" General Settings
 set nobackup
 set writebackup
-"###################################################
-" 表示
-"###################################################
+set clipboard=unnamed
+" Configuration of showing
 syntax on
 set title
 set nonumber
@@ -26,25 +53,6 @@ set showmatch
 set matchtime=2
 set hlsearch
 set wildmenu
-"-----------------
-" vi との互換性OFF
-set nocompatible
-" ファイル形式の検出を無効にする
-filetype off
-
-" Vundle を初期化して
-" Vundle 自身も Vundle で管理
-set rtp+=/home/meruneru/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/neomru.vim'
-"tmuxでクリップボードを使うため
-Bundle 'git://github.com/kana/vim-fakeclip.git' 
-" ファイル形式検出、プラグイン、インデントを ON
-filetype plugin indent on 
 
 "------------------------------------
 " neocomplcache
@@ -85,8 +93,8 @@ nnoremap <silent> ,urfr :<C-u>Unite file file/new -input=spec/ <CR>
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" ファイル形式検出、プラグイン、インデントを ON  
-filetype plugin indent on 
+" ファイル形式検出、プラグイン、インデントを ON
+filetype plugin indent on
 "
 "ファイルの編集中に評価する
 "map <Leader>r <Esc>:!gosh -l %:p<CR>
@@ -126,11 +134,10 @@ nnoremap <silent> to :<c-u>tabonly<cr>
 nnoremap <silent> ts :<c-u>tabs<cr>
 
 "------------------------------------
-"" vimrc再読み込み
+"" vimgrep
 "------------------------------------
-augroup source-vimrc
-	autocmd!
-	autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-	autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-augroup END
-
+autocmd QuickFixCmdPost *grep* cwindow
+nnoremap [q :cprevious<CR>   " 前へ
+nnoremap ]q :cnext<CR>       " 次へ
+nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+nnoremap ]Q :<C-u>clast<CR>  " 最後へ
