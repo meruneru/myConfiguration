@@ -54,6 +54,11 @@ set matchtime=2
 set hlsearch
 set wildmenu
 
+" TABキーを押した際にタブ文字の代わりにスペースを入れる
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
 "------------------------------------
 " neocomplcache
 "------------------------------------
