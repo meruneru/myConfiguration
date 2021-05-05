@@ -3,15 +3,15 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=/Users/meruneru/.vim/bundles/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+if dein#load_state('/Users/meruneru/.vim/bundles')
+  call dein#begin('/Users/meruneru/.vim/bundles')
 
   " Let dein manage dein
   " Required:
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('/Users/meruneru/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
   call dein#add('Shougo/neosnippet.vim')
@@ -21,7 +21,20 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/vimfiler'                        )
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/neomru.vim'                      )
-  " call dein#add('git://github.com/kana/vim-fakeclip.git' )
+  call dein#add('Shougo/neoinclude.vim')
+  call dein#add('Shougo/deoplete-clangx')
+  call dein#add('fatih/vim-go'                      )
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  "C++ complete
+  call dein#add('lighttiger2505/deoplete-vim-lsp.git')
+  call dein#add('prabirshrestha/vim-lsp.git')
+  call dein#add('mattn/vim-lsp-settings.git')
+  let g:deoplete#enable_at_startup = 1 
 
   " Required:
   call dein#end()
@@ -32,12 +45,7 @@ endif
 filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-"-----------------------------------------------------------------------------
-" General Settings
+" " General Settings
 set nobackup
 set writebackup
 set clipboard=unnamed
@@ -54,11 +62,26 @@ set matchtime=2
 set hlsearch
 set wildmenu
 
+set tabstop=4
+set autoindent
+set expandtab
+set shiftwidth=4
+"colorscheme molokai
+let g:molokai_original = 1
+
+let g:python_host_prog = system('echo -n $(which python2)')
+let g:python3_host_prog = system('echo -n $(which python3)')
 "------------------------------------
 " neocomplcache
 "------------------------------------
 let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
 let g:vimfiler_as_default_explorer = 1
+
+"OpenGL
+set path+=$HOME/works/opengl/learnopengl/glad/include
+set path+=/usr/local/Cellar/glfw/3.3.2/include/GLFW
+set path+=/usr/local/include/GLFW
+
 "vimfiler 関連付け
 let g:vimfiler_safe_mode_by_default=0
 nnoremap <Space>f :<C-u>VimFiler<CR>
@@ -141,3 +164,61 @@ nnoremap [q :cprevious<CR>   " 前へ
 nnoremap ]q :cnext<CR>       " 次へ
 nnoremap [Q :<C-u>cfirst<CR> " 最初へ
 nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+
+"------------------------------------
+"" go-vim
+"------------------------------------
+let g:go_def_mode = 'godef'
+
+set completeopt-=preview
+
+"------------------------------------
+"" For mac
+"------------------------------------
+set backspace=indent,eol,start
+
+
+"------------------------------------
+"" deoplete
+"------------------------------------
+let g:deoplete#sources#clang#libclang_path = system("llvm-config --prefix")[:-2] . '/lib/libclang.dylib'
+let g:deoplete#sources#clang#clang_header = system("llvm-config --prefix")[:-2] . '/lib/clang'
+let g:deoplete#sources#clang#sort_algo = 'priority'
+let g:deoplete#sources#clang#clang_complete_database="./build/"
+
+call deoplete#enable()
+" No display of the number of competion list
+set shortmess+=c
+
+" <TAB>: completion.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+" <C-e>: popup cancel
+inoremap <expr><C-e>       deoplete#cancel_popup()
+
+call deoplete#custom#source('_', 'matchers', ['matcher_head'])
+call deoplete#custom#source('_', 'converters', [
+      \ 'converter_remove_paren',
+      \ 'converter_remove_overlap',
+      \ 'matcher_length',
+      \ 'converter_truncate_abbr',
+      \ 'converter_truncate_menu',
+      \ 'converter_auto_delimiter',
+      \ ])
+call deoplete#custom#option('keyword_patterns', {
+      \ '_': '[a-zA-Z_]\k*\(?',
+      \ 'tex': '[^\w|\s][a-zA-Z_]\w*',
+      \ })
+call deoplete#custom#option('camel_case', v:true)
+
+
+let g:dein#auto_recache = 1
