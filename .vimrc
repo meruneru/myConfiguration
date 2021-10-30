@@ -3,15 +3,15 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/Users/meruneru/.vim/bundles/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/Users/meruneru/.vim/bundles')
-  call dein#begin('/Users/meruneru/.vim/bundles')
+if dein#load_state('~/.cache/dein/')
+  call dein#begin('~/.cache/dein/')
 
   " Let dein manage dein
   " Required:
-  call dein#add('/Users/meruneru/.vim/bundles/repos/github.com/Shougo/dein.vim')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
   call dein#add('Shougo/neosnippet.vim')
@@ -72,9 +72,9 @@ let g:molokai_original = 1
 let g:python_host_prog = system('echo -n $(which python2)')
 let g:python3_host_prog = system('echo -n $(which python3)')
 "------------------------------------
-" neocomplcache
-"------------------------------------
-let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+"" neocomplcache
+""------------------------------------
+"let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
 let g:vimfiler_as_default_explorer = 1
 
 "OpenGL
@@ -86,8 +86,8 @@ set path+=/usr/local/include/GLFW
 let g:vimfiler_safe_mode_by_default=0
 nnoremap <Space>f :<C-u>VimFiler<CR>
 "------------------------------------
-" unite.vim
-"------------------------------------
+"" unite.vim
+""------------------------------------
 let g:unite_enable_start_insert = 0
 let g:unite_enable_split_vertically = 0
 let g:unite_winwidth = 40
@@ -95,7 +95,7 @@ let g:unite_winwidth = 40
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
 "最近使ったファイル一覧
 nnoremap <silent> ,um :<C-u>Unite  file_mru <CR>
-" バッファ一覧
+"" バッファ一覧
 nnoremap <silent> ,ub :<C-u>Unite  buffer <CR>
 nnoremap <silent> ,urc :<C-u>Unite file_rec/async:app/controllers/ <CR>
 nnoremap <silent> ,urfc :<C-u>Unite file file/new -input=app/controllers/ <CR>
@@ -116,11 +116,9 @@ nnoremap <silent> ,urfr :<C-u>Unite file file/new -input=spec/ <CR>
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" ファイル形式検出、プラグイン、インデントを ON
-filetype plugin indent on
 "
 "ファイルの編集中に評価する
-"map <Leader>r <Esc>:!gosh -l %:p<CR>
+map <Leader>r <Esc>:!gosh -l %:p<CR>
 "-----------------------------------
 "<TAB>で補完
 "------------------------------------
@@ -190,7 +188,7 @@ call deoplete#enable()
 " No display of the number of competion list
 set shortmess+=c
 
-" <TAB>: completion.
+" <TAB>: comple'tion.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
